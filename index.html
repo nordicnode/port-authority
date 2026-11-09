@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="dark"/>
+<link rel="icon" href="data:,">
+<title>Game Ports — game-ports.nfo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;
+  --ink:#c9c9c9;
+  --ink-dim:#8f8f8f;
+  --ink-faint:#5c5c5c;
+  --bright:#f2f2f2;
+  --accent:#7fb069;
+  --accent-dim:#4a6741;
+  --line:#333333;
+  --line-soft:#262626;
+  --panel:#101010;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:15.5px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--accent-dim);color:#fff}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.page{max-width:840px;margin:0 auto;padding:28px 20px 40px}
+@media(max-width:560px){.page{padding:20px 14px 32px}}
+
+/* file frame */
+.frame{border:1px solid var(--line);padding:6px}
+.frame-in{border:1px solid var(--line-soft);padding:34px 38px 30px}
+@media(max-width:640px){.frame-in{padding:24px 18px 22px}}
+
+/* header block */
+.fileline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-faint);letter-spacing:.04em;padding-bottom:18px}
+.ascii{margin:6px 0 0;font-family:inherit;color:var(--bright);line-height:1.15;white-space:pre;overflow:hidden;font-size:clamp(5.5px,1.95vw,11.5px);text-align:center}
+.presents{text-align:center;color:var(--ink-dim);font-size:13px;letter-spacing:.35em;margin:18px 0 4px;text-transform:uppercase}
+.tagline{text-align:center;color:var(--ink-dim);font-size:14px;margin:0}
+.nav{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 4px;margin-top:22px;font-size:13.5px}
+.nav a{color:var(--ink);padding:2px 4px}
+.nav a:hover{color:var(--accent);text-decoration:none}
+.nav .b{color:var(--ink-faint)}
+
+/* sections */
+.sep-label{display:flex;align-items:center;gap:14px;margin:36px 0 0;color:var(--ink-faint);font-size:12px;letter-spacing:.3em}
+.sep-label::before,.sep-label::after{content:"";flex:1;border-top:1px solid var(--line)}
+section{padding-top:24px}
+section h2{font-size:15px;font-weight:600;color:var(--bright);letter-spacing:.22em;text-transform:uppercase;margin:0 0 16px;font-family:inherit}
+section h2 .no{color:var(--accent)}
+h3.sub{font-size:13.5px;font-weight:600;color:var(--bright);letter-spacing:.1em;margin:24px 0 10px;font-family:inherit;text-transform:uppercase}
+h3.sub:first-child{margin-top:0}
+p{margin:0 0 14px;color:var(--ink)}
+p:last-child{margin-bottom:0}
+.dim{color:var(--ink-dim)}
+.small{font-size:13.5px}
+.mono{font-size:.93em;color:var(--accent)}
+
+/* info table */
+.info{display:grid;gap:5px}
+.irow{display:flex;align-items:baseline;font-size:14.5px}
+.irow .k{color:var(--ink-dim);white-space:nowrap}
+.irow .dots{flex:1;border-bottom:1px dotted var(--line);margin:0 8px;min-width:16px;transform:translateY(-4px)}
+.irow .v{color:var(--bright);white-space:nowrap;text-align:right}
+@media(max-width:600px){
+  .irow{flex-wrap:wrap}
+  .irow .dots{display:none}
+  .irow .k{width:100%;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .irow .v{white-space:normal;text-align:left;margin-bottom:8px}
+}
+
+/* progress */
+.progress{margin-top:20px;font-size:14px;color:var(--ink-dim)}
+.progress .bar{color:var(--accent);letter-spacing:.15em}
+.progress .names{margin-top:4px;font-size:12.5px;color:var(--ink-faint)}
+
+/* status lists */
+ul.chk{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:14.5px}
+ul.chk li{display:grid;grid-template-columns:auto 1fr;gap:12px;color:var(--ink-dim)}
+.mark{font-weight:600;white-space:nowrap}
+.mark.ok{color:var(--accent)}
+.mark.part{color:#c9a227}
+.mark.no{color:var(--ink-faint)}
+ul.chk b{color:var(--bright);font-weight:600}
+
+/* code blocks */
+.code{border:1px solid var(--line);background:var(--panel);margin:16px 0}
+.code .code-head{padding:8px 14px;border-bottom:1px solid var(--line-soft);font-size:12px;letter-spacing:.14em;color:var(--ink-faint);text-transform:uppercase}
+.code pre{margin:0;padding:16px;overflow-x:auto;font-family:inherit;font-size:13px;line-height:1.7;color:var(--ink);white-space:pre}
+.code pre .cm{color:var(--ink-faint)}
+
+/* maintainer block */
+.maint{margin-top:44px;border-top:1px solid var(--line-soft);padding-top:16px;font-size:13px;color:var(--ink-faint);line-height:1.7}
+.maint b{color:var(--ink-dim);font-weight:600}
+.maint details{margin-top:8px}
+.maint summary{cursor:pointer;color:var(--ink-dim)}
+.maint summary:hover{color:var(--accent)}
+.copybtn{font-family:inherit;font-size:12.5px;background:transparent;color:var(--bright);border:1px solid var(--line);padding:6px 12px;cursor:pointer;margin:10px 0 0}
+.copybtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* footer */
+.eof{text-align:center;color:var(--ink-faint);font-size:12.5px;letter-spacing:.3em;margin-top:30px}
+.footline{text-align:center;color:var(--ink-faint);font-size:13px;margin-top:26px;line-height:1.7}
+:focus-visible{outline:1px dashed var(--accent);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="frame"><div class="frame-in">
+
+  <!-- ================= HEADER ================= -->
+  <div class="fileline">
+    <span>FILE: game-ports.nfo</span>
+    <span>1 PORT &middot; IN DEVELOPMENT</span>
+  </div>
+
+<pre class="ascii" aria-hidden="true">   ____    _    __  __ _____   ____   ___  ____ _____ ____
+  / ___|  / \  |  \/  | ____| |  _ \ / _ \|  _ \_   _/ ___|
+ | |  _  / _ \ | |\/| |  _|   | |_) | | | | |_) || | \___ \
+ | |_| |/ ___ \| |  | | |___  |  __/| |_| |  _ &lt; | |  ___) |
+  \____/_/   \_\_|  |_|_____| |_|    \___/|_| \_\|_| |____/</pre>
+
+  <p class="presents">p r e s e n t s</p>
+  <p class="tagline">Source ports of old games, rebuilt natively for Linux.<br>
+  Faithful to the original first. Improved second.</p>
+
+  <nav class="nav" aria-label="Contents">
+    <span class="b">[</span><a href="#info">RELEASE INFO</a><span class="b">]</span>
+    <span class="b">[</span><a href="#about">ABOUT</a><span class="b">]</span>
+    <span class="b">[</span><a href="#status">STATUS</a><span class="b">]</span>
+    <span class="b">[</span><a href="#install">RUN IT</a><span class="b">]</span>
+  </nav>
+
+  <!-- ================= RELEASE INFO ================= -->
+  <div class="sep-label"><span>&sect; 01</span></div>
+  <section id="info">
+    <h2><span class="no">01 /</span> Release info &mdash; Mega-lo-Mania</h2>
+    <div class="info">
+      <div class="irow"><span class="k">Title</span><span class="dots"></span><span class="v">Mega-lo-Mania &mdash; native Linux port</span></div>
+      <div class="irow"><span class="k">Original game</span><span class="dots"></span><span class="v">Sensible Software, 1991 (Amiga)</span></div>
+      <div class="irow"><span class="k">Porting from</span><span class="dots"></span><span class="v">DOS version &middot; MEGA.EXE</span></div>
+      <div class="irow"><span class="k">Genre</span><span class="dots"></span><span class="v">Real-time strategy / god game</span></div>
+      <div class="irow"><span class="k">Stack</span><span class="dots"></span><span class="v">C11 + SDL2 &middot; native Linux, no emulator</span></div>
+      <div class="irow"><span class="k">Distribution</span><span class="dots"></span><span class="v">Bring your own game files</span></div>
+      <div class="irow"><span class="k">Status</span><span class="dots"></span><span class="v">In progress &mdash; milestone 3 of 5</span></div>
+      <div class="irow"><span class="k">Repo</span><span class="dots"></span><span class="v"><a href="https://github.com/nordicnode/mega-lo-mania-port" target="_blank" rel="noreferrer">github.com/nordicnode/mega-lo-mania-port</a></span></div>
+    </div>
+    <div class="progress">
+      <span class="bar">[&#9619;&#9619;&#9619;&#9617;&#9617;]</span> Milestones: 3 of 5 reached
+      <div class="names">M1 Formats &middot; M2 Payloads &middot; M3 State 0 &mdash; done &nbsp;/&nbsp; M4 States 1&ndash;7 &middot; M5 Playable &mdash; to go</div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <div class="sep-label"><span>&sect; 02</span></div>
+  <section id="about">
+    <h2><span class="no">02 /</span> About</h2>
+    <p>Mega-lo-Mania is an island-conquest strategy game: grow a tribe, race through nine epochs from stone age to 2001, and conquer the island sector by sector before you get raided. 28 islands, four tribes. I played it on the Amiga 500 as a kid.</p>
+    <p>This port rebuilds it from the original binary so it runs natively on Linux — no emulator. The behaviour is recovered from the original and checked against it, so what survives is the game itself, not just a copy of the files.</p>
+  </section>
+
+  <!-- ================= STATUS ================= -->
+  <div class="sep-label"><span>&sect; 03</span></div>
+  <section id="status">
+    <h2><span class="no">03 /</span> Status</h2>
+
+    <h3 class="sub">What works</h3>
+    <ul class="chk">
+      <li><span class="mark ok">[DONE]</span><span><b>All game data decoded</b> — all 92 containers decode exactly; images, voice lines and screens identified.</span></li>
+      <li><span class="mark ok">[DONE]</span><span><b>First screen running</b> — the player-select screen draws and animates through the original’s own frame loop.</span></li>
+      <li><span class="mark ok">[DONE]</span><span><b>Original behaviour recovered</b> — the game’s random number generator and the commanders’ blink timing are ported and checked against the original.</span></li>
+    </ul>
+
+    <h3 class="sub">What’s left</h3>
+    <ul class="chk">
+      <li><span class="mark part">[PART]</span><span><b>Second screen (setup)</b> — mostly mapped; two pieces still to recover.</span></li>
+      <li><span class="mark no">[&nbsp;&nbsp;&nbsp;&nbsp;]</span><span><b>Remaining screens</b> — states 2&ndash;7 not yet ported.</span></li>
+      <li><span class="mark no">[&nbsp;&nbsp;&nbsp;&nbsp;]</span><span><b>Small details</b> — per-layer cursors and page-flip animation on the first screen.</span></li>
+    </ul>
+  </section>
+
+  <!-- ================= RUN IT ================= -->
+  <div class="sep-label"><span>&sect; 04</span></div>
+  <section id="install">
+    <h2><span class="no">04 /</span> Run it</h2>
+    <p>You need your own original game files — the port ships none. <span class="mono">make check</span> verifies the port still matches the original.</p>
+    <div class="code">
+      <div class="code-head">Terminal</div>
+<pre>$ git clone https://github.com/nordicnode/mega-lo-mania-port
+$ cd mega-lo-mania-port
+
+<span class="cm"># Add your own original game files
+# (none are included in the repo)</span>
+
+$ make check        <span class="cm"># the faithfulness gates</span>
+$ ./megalomania --run</pre>
+    </div>
+    <p class="small dim">Full details, tech notes and the dev log are in the repo: <a href="https://github.com/nordicnode/mega-lo-mania-port" target="_blank" rel="noreferrer">github.com/nordicnode/mega-lo-mania-port</a></p>
+  </section>
+
+  <!-- ================= MAINTAINER ================= -->
+  <div class="maint">
+    <b>Adding a port:</b> document it with the same eight fields — 01 Identity &middot; 02 Why this game &middot; 03 The hook &middot; 04 Status snapshot &middot; 05 What works / what doesn’t &middot; 06 Tech notes &middot; 07 Checks &amp; proof &middot; 08 Dev log. Ports are made by decompiling the original, recovering its formats, reimplementing natively, and gating every behaviour with a check.
+    <details>
+      <summary>PORT.md template</summary>
+      <button class="copybtn" id="copyBtn" type="button">[ COPY TEMPLATE ]</button>
+      <div class="code">
+<pre id="templateText"># Port № 000 — [Game Title]
+
+## 01 · Identity
+- Developer:
+- Released:
+- Original platform:
+- Porting from (version / binary):
+- Stack:
+- Repo:
+
+## 02 · Why this game
+[The memory. Why this one, in your own words.]
+
+## 03 · The hook
+[One line for the collection card.]
+
+## 04 · Status snapshot
+- Milestone: _ / 5
+- Current state:
+- Badge line:
+
+## 05 · What works / what doesn't
+### Working &amp; verified
+- [ ] Item — proof / check:
+### Not yet
+- [ ] Item — blocker:
+
+## 06 · Tech notes
+- Formats:
+- Key functions / tables:
+- Quirks &amp; dead ends recorded:
+
+## 07 · Checks &amp; proof
+- Gate command:
+- Comparisons:
+
+## 08 · Dev log
+### YYYY-MM-DD — [commit]
+What changed, and what it unblocked.</pre>
+      </div>
+    </details>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <p class="footline">All ports are bring-your-own-game-files. No original code or data is shipped.</p>
+  <p class="eof">&mdash; EOF &mdash;</p>
+
+</div></div>
+</div>
+
+<script>
+// Copy template
+document.getElementById('copyBtn').addEventListener('click',function(){
+  var text=document.getElementById('templateText').innerText;
+  var btn=this;
+  function done(){ btn.textContent='[ COPIED ]'; setTimeout(function(){btn.textContent='[ COPY TEMPLATE ]'},2600); }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){fallback()});
+  } else { fallback(); }
+  function fallback(){
+    var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); done(); }catch(e){ btn.textContent='[ SELECT TEXT ABOVE ]'; }
+    document.body.removeChild(ta);
+  }
+});
+</script>
+</body>
+</html>
